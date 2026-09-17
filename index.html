@@ -202,9 +202,9 @@
                         Active license records
                     </p>
 
-                    <div class="chart-placeholder">
-                        Borough chart will go here
-                    </div>
+                    <div class="chart-container">
+    <canvas id="boroughChart"></canvas>
+</div>
 
                 </div>
             </div>
@@ -223,9 +223,9 @@
                         Active license records
                     </p>
 
-                    <div class="chart-placeholder">
-                        Business category chart will go here
-                    </div>
+                    <div class="chart-container">
+    <canvas id="categoryChart"></canvas>
+</div>
 
                 </div>
             </div>
@@ -275,12 +275,25 @@
                 License records
             </p>
 
-            <div class="trend-placeholder">
-                Issuance trend chart will go here
-            </div>
+            <div class="trend-chart-container">
+    <canvas id="issuanceChart"></canvas>
 
+</div>
+   <!-- Data Note -->
+    <p class="text-muted small mt-3">
+        <strong>Note:</strong> 2026 represents a partial year.
+        Initial issuance year refers to the license's initial issuance date
+        and does not necessarily represent when the business opened.
+    </p>
         </div>
     </div>
+        
+
+    
+
+        
+   
+
 
 </section>
 <!-- Footer -->
@@ -303,6 +316,11 @@
 
     </div>
 </footer>
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<!-- Our JavaScript -->
+<script src="dashboard.js"></script>
     <script src="dashboard.js"></script>
 
 </body>

@@ -31,3 +31,11 @@
 
     color: #777777;
 }
+.chart-container {
+    position: relative;
+    height: 300px;
+}
+.trend-chart-container {
+    position: relative;
+    height: 350px;
+}
