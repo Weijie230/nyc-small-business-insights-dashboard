@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>NYC Small Business Insights Dashboard</title>
+
+    <!-- Bootstrap -->
+    <link 
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" 
+        rel="stylesheet"
+    >
+
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+   <!-- Navigation Bar -->
+<nav class="navbar navbar-expand-lg bg-light border-bottom">
+    <div class="container">
+
+        <a class="navbar-brand fw-bold" href="#">
+            NYC Business Insights
+        </a>
+
+        <div class="navbar-nav ms-auto flex-row gap-4">
+            <a class="nav-link active" href="#">Dashboard</a>
+            <a class="nav-link" href="#">About Data</a>
+            <a class="nav-link" href="#">Methodology</a>
+        </div>
+
+    </div>
+</nav>
+<!-- Hero Section -->
+<section class="container text-center py-5">
+
+    <h1 class="fw-bold">
+        NYC Small Business Insights Dashboard
+    </h1>
+
+    <p class="text-muted mt-3">
+        Explore trends in NYC Department of Consumer and Worker Protection
+        (DCWP) issued-license data across boroughs, business categories,
+        and issuance years.
+    </p>
+
+</section>
+<!-- Filters Section -->
+<section class="container py-5">
+
+    <div class="text-center mb-4">
+        <h2 class="fw-bold">Filters</h2>
+        <p class="text-muted">
+            Refine the dashboard to focus on a specific slice of
+            DCWP-issued license records.
+        </p>
+    </div>
+
+    <div class="row g-4">
+
+        <!-- Borough Filter -->
+        <div class="col-md-4">
+            <label for="boroughFilter" class="form-label">
+                Borough
+            </label>
+
+            <select id="boroughFilter" class="form-select">
+                <option value="all">All Boroughs</option>
+                <option value="Bronx">Bronx</option>
+                <option value="Brooklyn">Brooklyn</option>
+                <option value="Manhattan">Manhattan</option>
+                <option value="Queens">Queens</option>
+                <option value="Staten Island">Staten Island</option>
+            </select>
+        </div>
+
+        <!-- Business Category Filter -->
+        <div class="col-md-4">
+            <label for="categoryFilter" class="form-label">
+                Business Category
+            </label>
+
+            <select id="categoryFilter" class="form-select">
+                <option value="all">All Categories</option>
+            </select>
+        </div>
+
+        <!-- License Status Filter -->
+        <div class="col-md-4">
+            <label for="statusFilter" class="form-label">
+                License Status
+            </label>
+
+            <select id="statusFilter" class="form-select">
+                <option value="Active">Active</option>
+                <option value="all">All Statuses</option>
+            </select>
+        </div>
+
+    </div>
+
+    <div class="text-center mt-4">
+        <button class="btn btn-outline-dark me-2">
+            Reset
+        </button>
+
+        <button class="btn btn-dark">
+            Apply Filters
+        </button>
+    </div>
+
+</section>
+<!-- At a Glance Section -->
+<section class="container py-5">
+
+    <div class="text-center mb-5">
+        <h2 class="fw-bold">At a Glance</h2>
+
+        <p class="text-muted">
+            Snapshot of active license activity based on the current filters.
+        </p>
+    </div>
+
+    <div class="row g-4">
+
+        <!-- Active License Records -->
+        <div class="col-md-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <p class="text-muted mb-2">
+                        Active license records
+                    </p>
+
+                    <h3 class="fw-bold" id="activeLicenseCount">
+                        29,134
+                    </h3>
+                </div>
+            </div>
+        </div>
+
+        <!-- Unique Businesses -->
+        <div class="col-md-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <p class="text-muted mb-2">
+                        Unique businesses with active licenses
+                    </p>
+
+                    <h3 class="fw-bold" id="uniqueBusinessCount">
+                        25,767
+                    </h3>
+                </div>
+            </div>
+        </div>
+
+        <!-- Top Business Category -->
+        <div class="col-md-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <p class="text-muted mb-2">
+                        Top business category
+                    </p>
+
+                    <h3 class="fw-bold" id="topBusinessCategory">
+                        Home Improvement Contractor
+                    </h3>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</section>
+<!-- Business License Activity -->
+<section class="container py-5">
+
+    <div class="text-center mb-5">
+        <h2 class="fw-bold">Business License Activity</h2>
+
+        <p class="text-muted">
+            Compare active license records across NYC boroughs
+            and business categories.
+        </p>
+    </div>
+
+    <div class="row g-4">
+
+        <!-- Borough Chart -->
+        <div class="col-md-6">
+            <div class="card h-100">
+                <div class="card-body">
+
+                    <h5 class="fw-bold">
+                        Active license records by borough
+                    </h5>
+
+                    <p class="text-muted">
+                        Active license records
+                    </p>
+
+                    <div class="chart-placeholder">
+                        Borough chart will go here
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Category Chart -->
+        <div class="col-md-6">
+            <div class="card h-100">
+                <div class="card-body">
+
+                    <h5 class="fw-bold">
+                        Most common business categories
+                    </h5>
+
+                    <p class="text-muted">
+                        Active license records
+                    </p>
+
+                    <div class="chart-placeholder">
+                        Business category chart will go here
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+<!-- Map -->
+<div class="card mt-4">
+    <div class="card-body">
+
+        <h5 class="fw-bold">
+            Geographic Distribution of Licensed Businesses
+        </h5>
+
+        <p class="text-muted">
+            Explore the geographic distribution of active licensed businesses
+            across New York City.
+        </p>
+
+        <div class="map-placeholder">
+            Interactive NYC map will go here
+        </div>
+
+    </div>
+</div>
+</section>
+    <!-- Issuance Trends Section -->
+<section class="container py-5">
+
+    <div class="text-center mb-5">
+        <h2 class="fw-bold">Issuance Trends</h2>
+
+        <p class="text-muted">
+            Explore how license records with different initial issuance years
+            change over time.
+        </p>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+
+            <h5 class="fw-bold">
+                License records by initial issuance year
+            </h5>
+
+            <p class="text-muted">
+                License records
+            </p>
+
+            <div class="trend-placeholder">
+                Issuance trend chart will go here
+            </div>
+
+        </div>
+    </div>
+
+</section>
+<!-- Footer -->
+<footer class="border-top py-4 mt-5">
+    <div class="container text-center">
+
+        <p class="mb-1">
+            Data Source: NYC Open Data / DCWP Issued Licenses
+        </p>
+
+        <p class="text-muted small mb-1">
+            Note: This dataset represents DCWP-issued license records,
+            not every small business in New York City.
+        </p>
+
+        <p class="text-muted small mb-0">
+            Use the filters to explore specific boroughs,
+            business categories, and license statuses.
+        </p>
+
+    </div>
+</footer>
+    <script src="dashboard.js"></script>
+
+</body>
+
+</html>
