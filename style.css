@@ -39,3 +39,8 @@
     position: relative;
     height: 350px;
 }
+#businessMap {
+    height: 400px;
+    width: 100%;
+    border-radius: 8px;
+}

@@ -117,3 +117,25 @@ total_active_businesses = active_df["Business Unique ID"].nunique()
 
 print("\nTotal unique businesses with active licenses:")
 print(total_active_businesses)
+
+
+# Export active business locations for map
+
+
+map_data = active_df[
+    [
+        "Business Name",
+        "Business Category",
+        "License Status",
+        "Borough",
+        "Latitude",
+        "Longitude"
+    ]
+].dropna(subset=["Latitude", "Longitude"])
+
+map_data.to_json(
+    "data/business_locations.json",
+    orient="records"
+)
+
+print(f"\nMap locations exported: {len(map_data)}")

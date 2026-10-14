@@ -112,3 +112,44 @@ new Chart(issuanceCanvas, {
         }
     }
 });
+// NYC Business Map
+
+
+const businessMap = L.map("businessMap").setView(
+    [40.7128, -74.0060],
+    10
+);
+
+
+L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    maxZoom: 19,
+    attribution: "&copy; OpenStreetMap contributors"
+}).addTo(businessMap);
+
+fetch("data/business_locations.json")
+    .then(response => response.json())
+    .then(data => {
+        console.log("Map data loaded:", data.length);
+
+       data.forEach(business => {
+    const marker = L.circleMarker(
+        [business.Latitude, business.Longitude],
+        {
+            radius: 4,
+            fillOpacity: 0.5,
+            weight: 1,
+            opacity: 0.7
+        }
+    ).addTo(businessMap);
+
+    marker.bindPopup(`
+        <strong>${business["Business Name"]}</strong><br>
+        Category: ${business["Business Category"]}<br>
+        Borough: ${business["Borough"]}<br>
+        Status: ${business["License Status"]}
+    `);
+});
+    })
+    .catch(error => {
+        console.error("Error loading map data:", error);
+    });

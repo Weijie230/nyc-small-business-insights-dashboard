@@ -12,7 +12,11 @@
         href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" 
         rel="stylesheet"
     >
-
+<!-- Leaflet CSS -->
+<link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+/>
     
     <link rel="stylesheet" href="style.css">
 </head>
@@ -245,9 +249,7 @@
             across New York City.
         </p>
 
-        <div class="map-placeholder">
-            Interactive NYC map will go here
-        </div>
+        <div id="businessMap"></div>
 
     </div>
 </div>
@@ -316,11 +318,13 @@
 
     </div>
 </footer>
+<!-- Leaflet JS -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <!-- Chart.js -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <!-- Our JavaScript -->
-<script src="dashboard.js"></script>
+
     <script src="dashboard.js"></script>
 
 </body>
