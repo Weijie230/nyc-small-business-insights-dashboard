@@ -44,3 +44,30 @@
     width: 100%;
     border-radius: 8px;
 }
+html {
+    scroll-behavior: smooth;
+}
+/* Navbar hover effect */
+.navbar .nav-link {
+    transition: color 0.2s ease;
+}
+
+.navbar .nav-link:hover {
+    color: #0d6efd;
+}
+
+/* Keep navbar above charts and maps */
+.navbar {
+    z-index: 1100;
+}
+
+/* Smooth scrolling */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Prevent sticky navbar from covering sections */
+#about-data,
+#methodology {
+    scroll-margin-top: 90px;
+}
