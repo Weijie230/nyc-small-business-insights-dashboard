@@ -71,3 +71,287 @@ html {
 #methodology {
     scroll-margin-top: 90px;
 }
+
+/* ==========================================
+   Dashboard UI Improvements
+========================================== */
+
+/* Smooth scrolling */
+html {
+    scroll-behavior: smooth;
+}
+
+/* General typography */
+body {
+    font-family: Arial, sans-serif;
+    color: #212529;
+    line-height: 1.6;
+}
+
+/* ==========================================
+   Navbar
+========================================== */
+
+.navbar {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    z-index: 1100;
+}
+
+.navbar-brand {
+    font-size: 1.25rem;
+}
+
+.navbar .nav-link {
+    transition: color 0.2s ease;
+}
+
+.navbar .nav-link:hover {
+    color: #0d6efd;
+}
+
+/* ==========================================
+   Reduce Excessive Section Spacing
+========================================== */
+
+body > section.container {
+    padding-top: 32px !important;
+    padding-bottom: 32px !important;
+}
+
+/* Reduce space below section headings */
+section .mb-5 {
+    margin-bottom: 24px !important;
+}
+
+section .mb-4 {
+    margin-bottom: 16px !important;
+}
+
+/* ==========================================
+   Cards
+========================================== */
+
+.card {
+    border: 1px solid #dee2e6;
+    border-radius: 12px;
+    transition: box-shadow 0.2s ease,
+                transform 0.2s ease;
+}
+
+.card:hover {
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+    transform: translateY(-2px);
+}
+
+.card-body {
+    padding: 24px;
+}
+
+/* ==========================================
+   Filters
+========================================== */
+
+.form-select {
+    border-radius: 8px;
+    min-height: 44px;
+}
+
+.btn {
+    border-radius: 8px;
+    padding: 10px 18px;
+}
+
+/* ==========================================
+   Charts and Map
+========================================== */
+
+.chart-container {
+    position: relative;
+    height: 300px;
+    width: 100%;
+}
+
+.trend-chart-container {
+    position: relative;
+    height: 340px;
+    width: 100%;
+}
+
+#businessMap {
+    height: 400px;
+    width: 100%;
+    border-radius: 8px;
+}
+
+/* ==========================================
+   Anchor Navigation
+========================================== */
+
+#about-data,
+#methodology {
+    scroll-margin-top: 90px;
+}
+
+/* ==========================================
+   Tablet Layout
+========================================== */
+
+@media (max-width: 991px) {
+
+    .navbar .container {
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+
+    .navbar .navbar-nav {
+        margin-left: 0 !important;
+        flex-wrap: wrap;
+        gap: 16px !important;
+    }
+
+    .card-body {
+        padding: 20px;
+    }
+
+    .chart-container {
+        height: 280px;
+    }
+
+}
+
+/* ==========================================
+   Mobile Layout
+========================================== */
+
+@media (max-width: 767px) {
+
+    body > section.container {
+        padding-top: 24px !important;
+        padding-bottom: 24px !important;
+    }
+
+    h1 {
+        font-size: 1.8rem;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+    }
+
+    .navbar-brand {
+        font-size: 1.1rem;
+    }
+
+    .navbar .navbar-nav {
+        width: 100%;
+        justify-content: flex-start;
+        gap: 12px !important;
+    }
+
+    .navbar .nav-link {
+        font-size: 0.9rem;
+    }
+
+    .card-body {
+        padding: 16px;
+    }
+
+    .chart-container {
+        height: 300px;
+    }
+
+    .trend-chart-container {
+        height: 280px;
+    }
+
+    #businessMap {
+        height: 320px;
+    }
+
+    .form-select {
+        width: 100%;
+    }
+
+    .btn {
+        margin-bottom: 8px;
+    }
+
+}
+
+/* ==========================================
+   Small Mobile Screens
+========================================== */
+
+@media (max-width: 480px) {
+
+    h1 {
+        font-size: 1.6rem;
+    }
+
+    .chart-container {
+        height: 280px;
+    }
+
+    .trend-chart-container {
+        height: 260px;
+    }
+
+    #businessMap {
+        height: 280px;
+    }
+
+    .card h3 {
+        overflow-wrap: anywhere;
+    }
+
+}
+/* Improve mobile spacing */
+@media (max-width: 767px) {
+
+    body > section.container {
+        padding-top: 16px !important;
+        padding-bottom: 16px !important;
+    }
+
+    section h1 {
+        margin-bottom: 12px;
+    }
+
+    section h2 {
+        margin-bottom: 12px;
+    }
+
+    section p {
+        margin-bottom: 12px;
+    }
+
+    .navbar {
+        padding-top: 8px;
+        padding-bottom: 8px;
+    }
+}
+/* Mobile chart improvements */
+@media (max-width: 767px) {
+
+    .chart-container {
+        height: 320px;
+        overflow: hidden;
+    }
+
+    .chart-container canvas {
+        max-width: 100%;
+    }
+
+    .card-body {
+        padding: 12px;
+    }
+
+    .card h5 {
+        font-size: 1rem;
+    }
+
+    .trend-chart-container {
+        height: 300px;
+    }
+}

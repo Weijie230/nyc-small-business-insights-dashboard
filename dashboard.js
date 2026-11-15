@@ -1,34 +1,59 @@
 
+/* ==========================================
+   NYC Small Business Insights Dashboard
+========================================== */
+
 // ==========================================
-// NYC Small Business Insights Dashboard
+// 0. Shorten Category Names on Mobile
 // ==========================================
+
+function shortenCategoryName(name) {
+    const shortNames = {
+        "Home Improvement Contractor": "Home Improvement",
+        "Secondhand Dealer - General": "Secondhand Dealer",
+        "Electronic & Home Appliance Service Dealer": "Appliance Service",
+        "Dealer In Products For The Disabled": "Disabled Products",
+        "Electronic Cigarette Dealer": "E-Cigarette Dealer",
+        "Garage & Parking Lot": "Garage / Parking"
+    };
+
+    return shortNames[name] || (
+        name.length > 20
+            ? name.substring(0, 17) + "..."
+            : name
+    );
+}
 
 
 // ==========================================
-// 1. Active License Records by Borough
+// 1. Borough Chart
 // ==========================================
 
 const boroughCanvas = document.getElementById("boroughChart");
 
 const boroughChart = new Chart(boroughCanvas, {
     type: "bar",
+
     data: {
         labels: [
-            "Queens",
+            "Bronx",
             "Brooklyn",
             "Manhattan",
-            "Bronx",
+            "Queens",
             "Staten Island"
         ],
+
         datasets: [{
             label: "Active License Records",
-            data: [8650, 8388, 6166, 3866, 2064],
+            data: [3866, 8388, 6166, 8650, 2064],
             backgroundColor: "rgba(54, 162, 235, 0.6)"
         }]
     },
+
     options: {
         responsive: true,
         maintainAspectRatio: false,
+
         scales: {
             y: {
                 beginAtZero: true
@@ -39,13 +64,14 @@ const boroughChart = new Chart(boroughCanvas, {
 
 
 // ==========================================
-// 2. Top Business Categories
+// 2. Business Category Chart
 // ==========================================
 
 const categoryCanvas = document.getElementById("categoryChart");
 
 const categoryChart = new Chart(categoryCanvas, {
     type: "bar",
+
     data: {
         labels: [
             "Home Improvement Contractor",
@@ -54,22 +80,64 @@ const categoryChart = new Chart(categoryCanvas, {
             "Electronics Store",
             "Garage & Parking Lot"
         ],
+
         datasets: [{
             label: "Active License Records",
             data: [9346, 3803, 3489, 2448, 1735],
             backgroundColor: "rgba(54, 162, 235, 0.6)"
         }]
     },
+
     options: {
         responsive: true,
         maintainAspectRatio: false,
         indexAxis: "y",
+
         scales: {
             x: {
                 beginAtZero: true
+            },
+
+            y: {
+                ticks: {
+                    font: {
+                        size: 11
+                    },
+
+                    callback: function(value) {
+                        const fullName = this.getLabelForValue(value);
+
+                        if (window.innerWidth <= 767) {
+                            return shortenCategoryName(fullName);
+                        }
+
+                        return fullName;
+                    }
+                }
+            }
+        },
+
+        plugins: {
+            tooltip: {
+                callbacks: {
+                    title: function(items) {
+                        return items[0]?.label || "";
+                    },
+
+                    label: function(context) {
+                        return "License Records: " +
+                            context.parsed.x.toLocaleString();
+                    }
+                }
             }
         }
     }
+});
+
+
+// Refresh category labels when screen size changes
+window.addEventListener("resize", function() {
+    categoryChart.update("none");
 });
 
 
@@ -81,27 +149,33 @@ const issuanceCanvas = document.getElementById("issuanceChart");
 
 const issuanceChart = new Chart(issuanceCanvas, {
     type: "line",
+
     data: {
         labels: [
             "2012", "2013", "2014", "2015", "2016",
             "2017", "2018", "2019", "2020", "2021",
             "2022", "2023", "2024", "2025", "2026"
         ],
+
         datasets: [{
             label: "License Records",
+
             data: [
                 1124, 1420, 1416, 1765, 1635,
                 2398, 4257, 2425, 1651, 2969,
                 2993, 3022, 3241, 4273, 2574
             ],
+
             borderColor: "rgba(54, 162, 235, 1)",
             backgroundColor: "rgba(54, 162, 235, 0.2)",
             tension: 0.3
         }]
     },
+
     options: {
         responsive: true,
         maintainAspectRatio: false,
+
         scales: {
             y: {
                 beginAtZero: true
@@ -129,7 +203,7 @@ L.tileLayer(
 
 
 // ==========================================
-// 5. Store Business Data and Filters
+// 5. Business Data and Filters
 // ==========================================
 
 let allBusinessLocations = [];
@@ -170,7 +244,6 @@ function escapeHTML(value) {
 
 function displayBusinessMarkers(data) {
 
-    // Remove previous markers
     businessMarkers.clearLayers();
 
     data.forEach(business => {
@@ -264,7 +337,6 @@ function populateStatusFilter(data) {
 
     statusFilter.innerHTML = "";
 
-    // All Statuses option
     const allOption = document.createElement("option");
 
     allOption.value = "all";
@@ -272,7 +344,6 @@ function populateStatusFilter(data) {
 
     statusFilter.appendChild(allOption);
 
-    // Add each actual status from the dataset
     statuses.forEach(status => {
 
         const option = document.createElement("option");
@@ -283,19 +354,18 @@ function populateStatusFilter(data) {
         statusFilter.appendChild(option);
     });
 
-    // Active is the default
     statusFilter.value = "Active";
 }
 
 
- // ==========================================
- // Update Borough and Category Charts
- // ==========================================
+// ==========================================
+// 10. Update All Charts
+// ==========================================
 
 function updateCharts(filteredData, selectedStatus) {
 
     // --------------------------------------
-    // 1. Count License Records by Borough
+    // Borough Chart
     // --------------------------------------
 
     const boroughNames = [
@@ -307,16 +377,12 @@ function updateCharts(filteredData, selectedStatus) {
     ];
 
     const boroughCounts = boroughNames.map(borough => {
-
         return filteredData.filter(
             business => business.Borough === borough
         ).length;
-
     });
 
-    // Update Borough Chart
     boroughChart.data.labels = boroughNames;
-
     boroughChart.data.datasets[0].data = boroughCounts;
 
     boroughChart.data.datasets[0].label =
@@ -328,7 +394,7 @@ function updateCharts(filteredData, selectedStatus) {
 
 
     // --------------------------------------
-    // 2. Count License Records by Category
+    // Business Category Chart
     // --------------------------------------
 
     const categoryCounts = {};
@@ -341,10 +407,8 @@ function updateCharts(filteredData, selectedStatus) {
             categoryCounts[category] =
                 (categoryCounts[category] || 0) + 1;
         }
-
     });
 
-    // Sort categories by record count
     const sortedCategories = Object.entries(categoryCounts)
         .sort((a, b) => b[1] - a[1])
         .slice(0, 5);
@@ -357,7 +421,8 @@ function updateCharts(filteredData, selectedStatus) {
         item => item[1]
     );
 
-    // Update Category Chart
+    // Keep full names in Chart.js data.
+    // Only the axis display is shortened on mobile.
     categoryChart.data.labels = categoryNames;
 
     categoryChart.data.datasets[0].data = categoryValues;
@@ -369,47 +434,118 @@ function updateCharts(filteredData, selectedStatus) {
 
     categoryChart.update();
 
-// ==========================================
-// 3. Update Issuance Trends Chart
-// ==========================================
 
-const years = [
-    2012, 2013, 2014, 2015, 2016,
-    2017, 2018, 2019, 2020, 2021,
-    2022, 2023, 2024, 2025, 2026
-];
+    // --------------------------------------
+    // Issuance Trends Chart
+    // --------------------------------------
 
-const yearCounts = years.map(year => {
+    const years = [
+        2012, 2013, 2014, 2015, 2016,
+        2017, 2018, 2019, 2020, 2021,
+        2022, 2023, 2024, 2025, 2026
+    ];
 
-    return filteredData.filter(
-        business => Number(business["Issuance Year"]) === year
-    ).length;
+    const yearCounts = years.map(year => {
 
-});
+        return filteredData.filter(
+            business =>
+                Number(business["Issuance Year"]) === year
+        ).length;
+    });
 
-issuanceChart.data.labels = years.map(String);
+    issuanceChart.data.labels = years.map(String);
+    issuanceChart.data.datasets[0].data = yearCounts;
 
-issuanceChart.data.datasets[0].data = yearCounts;
+    issuanceChart.data.datasets[0].label =
+        selectedStatus === "all"
+            ? "All License Records"
+            : `${selectedStatus} License Records`;
 
-issuanceChart.data.datasets[0].label =
-    selectedStatus === "all"
-        ? "All License Records"
-        : `${selectedStatus} License Records`;
-
-issuanceChart.update();
-
+    issuanceChart.update();
 }
 
+
 // ==========================================
-// 10. Update Dashboard
+// 11. Update Dashboard
 // ==========================================
+
+
+/* ==========================================
+   Key Insights
+========================================== */
+
+function updateKeyInsights(filteredData) {
+
+    const boroughElement =
+        document.getElementById("insightBorough");
+
+    const categoryElement =
+        document.getElementById("insightCategory");
+
+    const percentageElement =
+        document.getElementById("insightPercentage");
+
+    // Handle empty results
+    if (filteredData.length === 0) {
+        boroughElement.textContent = "No Data";
+        categoryElement.textContent = "No Data";
+        percentageElement.textContent = "0%";
+        return;
+    }
+
+    // Count license records by borough
+    const boroughCounts = {};
+
+    // Count license records by category
+    const categoryCounts = {};
+
+    filteredData.forEach(business => {
+
+        const borough = business["Borough"];
+        const category = business["Business Category"];
+
+        if (borough) {
+            boroughCounts[borough] =
+                (boroughCounts[borough] || 0) + 1;
+        }
+
+        if (category) {
+            categoryCounts[category] =
+                (categoryCounts[category] || 0) + 1;
+        }
+    });
+
+    // Find top borough
+    const topBorough = Object.entries(boroughCounts)
+        .sort((a, b) => b[1] - a[1])[0];
+
+    // Find top category
+    const topCategory = Object.entries(categoryCounts)
+        .sort((a, b) => b[1] - a[1])[0];
+
+    // Calculate top category share
+    const percentage = topCategory
+        ? (topCategory[1] / filteredData.length) * 100
+        : 0;
+
+    // Update cards
+    boroughElement.textContent = topBorough
+        ? `${topBorough[0]} — ${topBorough[1].toLocaleString()}`
+        : "No Data";
+
+    categoryElement.textContent = topCategory
+        ? `${topCategory[0]} — ${topCategory[1].toLocaleString()}`
+        : "No Data";
+
+    percentageElement.textContent =
+        percentage.toFixed(1) + "%";
+}
 
 function updateDashboard() {
 
     const selectedBorough = boroughFilter.value;
     const selectedCategory = categoryFilter.value;
     const selectedStatus = statusFilter.value;
-
 
     // --------------------------------------
     // Filter Data
@@ -553,7 +689,7 @@ function updateDashboard() {
 
 
     // --------------------------------------
-    // Update Map Markers
+    // Update Map
     // --------------------------------------
 
     displayBusinessMarkers(filteredData);
@@ -586,15 +722,16 @@ function updateDashboard() {
         );
     }
 
+    // Update all charts
+    updateCharts(filteredData, selectedStatus);
+    updateKeyInsights(filteredData);
     console.log("Unique businesses:", uniqueBusinessIds.size);
     console.log("Top category:", topCategory);
-    // Update charts using the filtered data
-updateCharts(filteredData, selectedStatus);
 }
 
 
 // ==========================================
-// 11. Load JSON Data
+// 12. Load JSON Data
 // ==========================================
 
 fetch("data/business_locations.json?v=2")
@@ -615,11 +752,10 @@ fetch("data/business_locations.json?v=2")
 
         console.log("Map data loaded:", data.length);
 
-        // Populate dropdowns
         populateCategoryFilter(data);
         populateStatusFilter(data);
 
-        // Initial dashboard (Active)
+        // Show Active records by default
         updateDashboard();
     })
     .catch(error => {
@@ -627,10 +763,9 @@ fetch("data/business_locations.json?v=2")
     });
 
 
-
- // ==========================================
- // 12. Apply Filters and Reset Buttons
- // ==========================================
+// ==========================================
+// 13. Apply Filters and Reset Buttons
+// ==========================================
 
 const applyFiltersButton =
     document.getElementById("applyFilters");
@@ -638,26 +773,17 @@ const applyFiltersButton =
 const resetFiltersButton =
     document.getElementById("resetFilters");
 
-
-// Apply selected filters only when clicked
+// Apply filters
 applyFiltersButton.addEventListener("click", () => {
-
     updateDashboard();
-
 });
 
-
-// Reset all filters to their default values
+// Reset filters
 resetFiltersButton.addEventListener("click", () => {
 
     boroughFilter.value = "all";
-
     categoryFilter.value = "all";
-
     statusFilter.value = "Active";
 
     updateDashboard();
-
 });
-
-
