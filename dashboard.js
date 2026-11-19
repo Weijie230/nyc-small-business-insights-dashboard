@@ -244,9 +244,26 @@ function escapeHTML(value) {
 
 function displayBusinessMarkers(data) {
 
+   
+
     businessMarkers.clearLayers();
 
-    data.forEach(business => {
+    // Maximum number of markers displayed on the map
+    const MAX_MAP_MARKERS = 3000;
+
+    // Select markers evenly across the filtered dataset
+    const step = Math.max(
+        1,
+        Math.ceil(data.length / MAX_MAP_MARKERS)
+    );
+
+    const mapData = [];
+
+    for (let i = 0; i < data.length; i += step) {
+        mapData.push(data[i]);
+    }
+
+    mapData.forEach(business => {
 
         const latitude = Number(business.Latitude);
         const longitude = Number(business.Longitude);
@@ -282,9 +299,9 @@ function displayBusinessMarkers(data) {
         `);
     });
 
-    console.log("Displayed license records:", data.length);
+    console.log("Total matching records:", data.length);
+    console.log("Map markers selected:", mapData.length);
 }
-
 
 // ==========================================
 // 8. Populate Business Category Dropdown
@@ -571,6 +588,15 @@ function updateDashboard() {
             statusMatches
         );
     });
+
+     // Show or hide the no-results message
+const noResultsMessage = document.getElementById("noResultsMessage");
+
+if (filteredData.length === 0) {
+    noResultsMessage.classList.remove("d-none");
+} else {
+    noResultsMessage.classList.add("d-none");
+}
 
     console.log("Selected Borough:", selectedBorough);
     console.log("Selected Category:", selectedCategory);

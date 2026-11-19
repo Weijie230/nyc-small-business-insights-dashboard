@@ -160,6 +160,13 @@
                 Apply Filters
             </button>
 
+             <div id="noResultsMessage"
+     class="alert alert-warning mt-3 d-none"
+     role="status">
+  <strong>No Results Found.</strong>
+  No businesses match your selected filters.
+  Please try different options or reset the filters.
+</div>
         </div>
 
     </section>
@@ -404,7 +411,12 @@
                 </p>
 
                 <div id="businessMap"></div>
-
+                    <p class="text-muted small mt-3">
+    <strong>Map Note:</strong>
+    For better performance, the map displays a sample of
+    up to 3,000 matching license records.
+    Dashboard statistics and charts use all matching records.
+</p>
             </div>
 
         </div>
@@ -477,7 +489,10 @@
 <section id="about-data" class="container py-5">
 
     <h2 class="fw-bold mb-4">About Data</h2>
-
+<p class="text-muted small">
+    <strong>Dataset Last Updated:</strong>
+    September 7, 2026
+</p>
     <p>
         This dashboard uses the NYC Department of Consumer
         and Worker Protection (DCWP) Issued Licenses dataset
@@ -543,12 +558,30 @@
     </p>
 
     <h5 class="fw-bold">5. Limitations</h5>
-    <p>
-        License records should not be interpreted as the
-        total number of businesses in NYC. Initial issuance
-        dates do not necessarily indicate when a business
-        opened, and 2026 data represents a partial year.
-    </p>
+    <div class="alert alert-info mt-3">
+    <strong>Data Limitations:</strong>
+
+    <ul class="mb-0 mt-2">
+        <li>
+            The dataset does not include every business
+            operating in New York City.
+        </li>
+        <li>
+            One business may have multiple license records.
+        </li>
+        <li>
+            Initial license issuance dates do not necessarily
+            represent business opening dates.
+        </li>
+        <li>
+            The 2026 data represents a partial year.
+        </li>
+        <li>
+            The dashboard may not reflect the latest
+            business license changes.
+        </li>
+    </ul>
+</div>
 
 </section>
 
@@ -577,7 +610,7 @@
             </p>
 
         </div>
-
+      
     </footer>
 
 

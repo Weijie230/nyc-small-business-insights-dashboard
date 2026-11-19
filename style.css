@@ -355,3 +355,11 @@ section .mb-4 {
         height: 300px;
     }
 }
+/* Prevent sticky navbar from covering section headings */
+html {
+    scroll-padding-top: 90px;
+}
+
+section[id] {
+    scroll-margin-top: 90px;
+}
